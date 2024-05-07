@@ -81,7 +81,7 @@ LABELSFIRST=0 #0=features first in .csv; 1=label(s) first. (may be unreliable?)
 
 #ML model general hyperparameters
 #--------------------------------
-BATCHSIZE=1024 #was 32 originally
+BATCHSIZE=32 #was 32 originally
 TRAINPCT = 80 # percentage of data for training
 MAX_EPOCHS=1000
 
@@ -101,8 +101,8 @@ LEARNMIN=0.00001
 #(What size/shape is the hidden network?)
 # WxD option is default, or custom list can be used
 #--------------------------------------------------
-HIDDEN_WIDTH=256
-HIDDEN_DEPTH=8
+HIDDEN_WIDTH=6
+HIDDEN_DEPTH=1
 HIDDEN_TOPO = [HIDDEN_WIDTH]*HIDDEN_DEPTH
 #HIDDEN_TOPO = [1000,500,250,125,100,50,25,20,10,5]
 #HIDDEN_TOPO = [4,3,2] #Works for 4-bit primes
