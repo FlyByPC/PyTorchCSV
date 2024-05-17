@@ -33,8 +33,8 @@ INFERENCEFILE=BASENAME+'_labeled.csv'  #Output file
 SAVETIME=60 #Save a checkpoint every x seconds, if not otherwise
 
 #Training / inference / analysis modes
-#-------------------------------------
-DOTRAINING=1  #0=Don't train -- just create image
+#-------------------------------------------------
+DOTRAINING=2  #0=Don't train -- just create image
               #1=train from random
               #2=load and train
               #3=output network .csv (only)
@@ -81,7 +81,7 @@ LABELSFIRST=0 #0=features first in .csv; 1=label(s) first. (may be unreliable?)
 
 #ML model general hyperparameters
 #--------------------------------
-BATCHSIZE=32 #was 32 originally
+BATCHSIZE=16 #was 32 originally
 TRAINPCT = 80 # percentage of data for training
 MAX_EPOCHS=1000
 
@@ -89,20 +89,20 @@ MAX_EPOCHS=1000
 #Learning rate controls
 #(Basic learning rate and dynamic options)
 #-----------------------------------------
-LEARNRATE=0.001
+LEARNRATE=0.0005
 LEARNDYNAMIC=1 #Learn rate is proportional to bestLoss^learnpower
-LEARNFACTOR=1.0 #Dynamic learn rate multiplier (multiplied by VLoss)
+LEARNFACTOR=10.0 #Dynamic learn rate multiplier (multiplied by VLoss)
 LEARNPOWER=1.7 
 LEARNMAX=0.005
-LEARNMIN=0.00001
+LEARNMIN=0.0001
 
 
 #Hidden layer topology.
 #(What size/shape is the hidden network?)
 # WxD option is default, or custom list can be used
 #--------------------------------------------------
-HIDDEN_WIDTH=6
-HIDDEN_DEPTH=1
+HIDDEN_WIDTH=128
+HIDDEN_DEPTH=8
 HIDDEN_TOPO = [HIDDEN_WIDTH]*HIDDEN_DEPTH
 #HIDDEN_TOPO = [1000,500,250,125,100,50,25,20,10,5]
 #HIDDEN_TOPO = [4,3,2] #Works for 4-bit primes
@@ -423,6 +423,8 @@ bestLoss=999 #Lower is better, and 999 ought to be far worse than any result
 print("Reading data...")
 data = pd.read_csv(INPUTFILE)
 print("Total rows in the dataset:", len(data))
+
+print("Torch CUDA memory allocated", torch.cuda.memory_allocated())
 
 if(DOTRAINING != 5):
 
